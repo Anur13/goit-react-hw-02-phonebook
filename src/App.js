@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PhoneBook from './PhoneBook/PhoneBook';
+import PhoneBook from './Components/PhoneBook/PhoneBook';
 import { v4 as uuidv4 } from 'uuid';
-import ContactsList from './Contacts/ContactsList';
-import Filter from './Filter/Filter';
+import ContactsList from './Components/Contacts/ContactsList';
+import Filter from './Components/Filter/Filter';
 
 class App extends Component {
   state = {

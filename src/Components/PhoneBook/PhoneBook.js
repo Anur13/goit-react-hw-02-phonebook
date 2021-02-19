@@ -73,10 +73,10 @@ class PhoneBook extends Component {
             onChange={this.handleNumberChange}
             value={this.state.number}
             type="tel"
-            pattern="[0-9]{9}"
-            placeholder="533-333-233"
-            minLength="9"
-            maxLength="9"
+            pattern="[0-9]{7}"
+            placeholder="533-33-23"
+            minLength="7"
+            maxLength="7"
             required
           />
         </label>
