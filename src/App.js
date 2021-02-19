@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import PhoneBook from './PhoneBook/PhoneBook';
+import { v4 as uuidv4 } from 'uuid';
+import ContactsList from './Contacts/ContactsList';
+import Filter from './Filter/Filter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+  };
+  formSubmitHandler = data => {
+    const id = uuidv4();
+    data.id = id;
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, data],
+    }));
+  };
+
+  HandleDelete = deleteID => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(item => {
+        if (item.id !== deleteID) {
+          return item;
+        }
+      }),
+    }));
+  };
+
+  handleFilter = querry => {
+    this.setState({ filter: querry });
+  };
+
+  render() {
+    const filterContacts = this.state.contacts.filter(item =>
+      item.name.toLowerCase().includes(this.state.filter) ? item : null,
+    );
+
+    return (
+      <div className="container">
+        <h1>PhoneBook</h1>
+        <PhoneBook
+          HandleSubmit={this.formSubmitHandler}
+          ContactsList={this.state.contacts}
+        />
+
+        <h2>Contacts</h2>
+        <Filter HandleFilter={this.handleFilter} />
+        <ContactsList list={filterContacts} deleteID={this.HandleDelete} />
+      </div>
+    );
+  }
 }
 
 export default App;
